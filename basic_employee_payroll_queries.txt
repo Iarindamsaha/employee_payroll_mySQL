@@ -35,3 +35,21 @@ select min(Salary) from employee_payroll where Gender = 'M' group by Gender;
 select max(Salary) from employee_payroll where Gender = 'M' group by Gender;
 select count(Salary) from employee_payroll where Gender = 'F' group by Gender;
 
+#UC 8
+alter table employee_payroll add column employee_phone int after Employee_name;
+alter table employee_payroll add column address varchar(30) after employee_phone;
+alter table employee_payroll add column department varchar(20) not null after address;
+alter table employee_payroll alter address set default 'KOL';
+describe employee_payroll;
+
+#UC 9
+alter table employee_payroll rename column salary to basic_pay;
+alter table employee_payroll add deduction double not null after basic_pay;
+alter table employee_payroll add column taxable_pay double not null after deduction;
+alter table employee_payroll add tax double not null after taxable_pay;
+alter table employee_payroll add net_pay double not null after tax;
+
+#UC10
+update employee_payroll set department = 'Sales' where employee_name = "Terrisa";
+insert into employee_payroll (id, Employee_Name, department, Gender, basic_pay, deduction, taxable_pay, tax, net_pay, Starting_Date) values (4,"Terrisa", "Marketing","F",3000000,1000000,2000000,500000,15000000,'2019-11-13');
+
